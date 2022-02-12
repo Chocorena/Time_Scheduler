@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="594.0" prefWidth="1100.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="G13.AdminLoginController">
+   <children>
+      <AnchorPane prefHeight="41.0" prefWidth="1100.0" style="-fx-background-color: #ff4040;">
+         <children>
+            <Button fx:id="logoutButton" layoutX="1023.0" layoutY="8.0" mnemonicParsing="false" onAction="#logoutButtonOnAction" text="LOGOUT" />
+            <Label fx:id="usernameLBL" layoutX="988.0" layoutY="12.0" AnchorPane.rightAnchor="84.0" />
+            <Text layoutX="22.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Admin Panel">
+               <font>
+                  <Font name="System Bold" size="25.0" />
+               </font>
+            </Text>
+         </children>
+      </AnchorPane>
+      <TableView fx:id="table" layoutY="41.0" prefHeight="554.0" prefWidth="916.0">
+        <columns>
+            <TableColumn fx:id="col_id" editable="false" prefWidth="27.0" sortable="false" text="ID" />
+          <TableColumn fx:id="col_username" editable="false" prefWidth="86.0" sortable="false" text="Username" />
+          <TableColumn fx:id="col_password" editable="false" onEditCommit="#passwordOnEditCommit" prefWidth="89.0" sortable="false" text="Password" />
+            <TableColumn fx:id="col_firstname" editable="false" onEditCommit="#firstnameOnEditCommit" prefWidth="89.0" sortable="false" text="Firstname" />
+            <TableColumn fx:id="col_lastname" editable="false" onEditCommit="#lastnameOnEditCommit" prefWidth="89.0" sortable="false" text="Lastname" />
+            <TableColumn fx:id="col_zipcode" editable="false" onEditCommit="#zipcodeOnEditCommit" prefWidth="89.0" sortable="false" text="Zipcode" />
+            <TableColumn fx:id="col_city" editable="false" onEditCommit="#cityOnEditCommit" prefWidth="89.0" sortable="false" text="City" />
+            <TableColumn fx:id="col_adress" editable="false" onEditCommit="#adressOnEditCommit" prefWidth="89.0" sortable="false" text="Adress" />
+            <TableColumn fx:id="col_email" editable="false" onEditCommit="#emailOnEditCommit" prefWidth="89.0" sortable="false" text="Email" />
+            <TableColumn fx:id="col_phonenumber" editable="false" onEditCommit="#phoneOnEditCommit" prefWidth="89.0" sortable="false" text="Phonenumber" />
+            <TableColumn fx:id="col_role" editable="false" prefWidth="89.0" sortable="false" text="Role" />
+        </columns>
+      </TableView>
+      <Text fx:id="headline" layoutX="916.0" layoutY="60.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Settings" textAlignment="CENTER" wrappingWidth="182.90625">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Text>
+      <Button fx:id="deleteUserButton" layoutX="956.0" layoutY="81.0" mnemonicParsing="false" onAction="#deleteButtonOnAction" prefHeight="25.0" prefWidth="109.0" text="Delete User" />
+      <Button fx:id="setAsAdminButton" layoutX="956.0" layoutY="128.0" mnemonicParsing="false" onAction="#setAsAdminButtonOnAction" prefHeight="25.0" prefWidth="109.0" text="Set as Admin" />
+      <Button fx:id="setAsUserButton" layoutX="956.0" layoutY="175.0" mnemonicParsing="false" onAction="#setAsUserButtonOnAction" prefHeight="25.0" prefWidth="109.0" text="Set as User" />
+      <Button fx:id="updateSettingsButton" layoutX="956.0" layoutY="222.0" mnemonicParsing="false" onAction="#updateSettingsOnAction" prefHeight="25.0" prefWidth="109.0" text="Update Settings" />
+      <Button fx:id="updateUserButton" layoutX="956.0" layoutY="81.0" mnemonicParsing="false" onAction="#updateUserOnAction" prefHeight="25.0" prefWidth="109.0" text="Update User" />
+      <Button fx:id="updatePasswordButton" layoutX="956.0" layoutY="128.0" mnemonicParsing="false" onAction="#updatePasswordOnAction" prefHeight="25.0" prefWidth="109.0" text="Update Password" />
+      <Button fx:id="backButton" layoutX="956.0" layoutY="175.0" mnemonicParsing="false" onAction="#backOnAction" prefHeight="25.0" prefWidth="109.0" text="Back" />
+      <Text fx:id="errorPassword" fill="RED" layoutX="920.0" layoutY="442.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="173.13671875">
+         <font>
+            <Font size="13.0" />
+         </font>
+      </Text>
+      <Text fx:id="errorFirstname" fill="RED" layoutX="920.0" layoutY="461.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="173.13671875">
+         <font>
+            <Font size="13.0" />
+         </font>
+      </Text>
+      <Text fx:id="errorLastname" fill="RED" layoutX="920.0" layoutY="481.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="173.13671875">
+         <font>
+            <Font size="13.0" />
+         </font>
+      </Text>
+      <Text fx:id="errorZipcode" fill="RED" layoutX="920.0" layoutY="501.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="173.13671875">
+         <font>
+            <Font size="13.0" />
+         </font>
+      </Text>
+      <Text fx:id="errorCity" fill="RED" layoutX="920.0" layoutY="521.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="173.13671875">
+         <font>
+            <Font size="13.0" />
+         </font>
+      </Text>
+      <Text fx:id="errorAdress" fill="RED" layoutX="920.0" layoutY="541.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="173.13671875">
+         <font>
+            <Font size="13.0" />
+         </font>
+      </Text>
+      <Text fx:id="errorEmail" fill="RED" layoutX="920.0" layoutY="561.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="173.13671875">
+         <font>
+            <Font size="13.0" />
+         </font>
+      </Text>
+      <Text fx:id="errorPhone" fill="RED" layoutX="920.0" layoutY="581.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="173.13671875">
+         <font>
+            <Font size="13.0" />
+         </font>
+      </Text>
+   </children>
+</AnchorPane>

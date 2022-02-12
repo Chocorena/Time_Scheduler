@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.Light.Distant?>
+<?import javafx.scene.effect.Lighting?>
+<?import javafx.scene.effect.Shadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="594.0" prefWidth="1100.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="G13.UserLoginController">
+   <children>
+      <AnchorPane prefHeight="80.0" prefWidth="1100.0" style="-fx-background-color: #ff4040;">
+         <children>
+            <Text layoutX="14.0" layoutY="54.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Time Scheduler EMEF" textAlignment="CENTER">
+               <font>
+                  <Font name="System Bold" size="35.0" />
+               </font>
+            </Text>
+            <Label fx:id="usernameLBL" alignment="CENTER_RIGHT" layoutX="1014.0" layoutY="29.0" textAlignment="RIGHT" AnchorPane.rightAnchor="84.0" />
+            <Button fx:id="logoutButton" layoutX="1023.0" layoutY="25.0" mnemonicParsing="false" onAction="#logoutButtonOnAction" text="LOGOUT" />
+            <ImageView fitHeight="80.0" fitWidth="200.0" layoutX="389.0" layoutY="-2.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../img/clipart2.png" />
+               </image>
+            </ImageView>
+         </children>
+      </AnchorPane>
+      <TabPane layoutY="80.0" prefHeight="514.0" prefWidth="1100.0" tabClosingPolicy="UNAVAILABLE">
+         <tabs>
+            <Tab fx:id="tabAppointments" text="Create appointment">
+               <content>
+                  <AnchorPane fx:id="location" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <Label fx:id="nameEventTxt" layoutX="71.0" layoutY="47.0" text="Name of event" />
+                        <Label fx:id="startDateTxt" layoutX="70.0" layoutY="126.0" text="Start of Event" />
+                        <Label fx:id="endDateTxt" layoutX="70.0" layoutY="212.0" text="End of Event" />
+                        <Label fx:id="startTimeTxt" layoutX="291.0" layoutY="127.0" text="Start Time" />
+                        <Label fx:id="endTimeTxt" layoutX="289.0" layoutY="212.0" text="End Time" />
+                        <Label fx:id="locationTxt" layoutX="498.0" layoutY="46.0" text="Location of Event" />
+                        <Label fx:id="choosePriorityTxt" layoutX="499.0" layoutY="126.0" text="Choose a priority" />
+                        <Label fx:id="addReminderTxt" layoutX="498.0" layoutY="212.0" text="Add Reminder" />
+                        <Label fx:id="addParticipantsTXT" layoutX="736.0" layoutY="41.0" text="Add Participants" />
+                        <TextField fx:id="nameEventField" layoutX="71.0" layoutY="69.0" promptText="Meeting" />
+                        <DatePicker fx:id="startDatePicker" layoutX="70.0" layoutY="148.0" promptText="01.03.2022" />
+                        <DatePicker fx:id="endDatePicker" layoutX="69.0" layoutY="234.0" promptText="01.03.2022" />
+                        <TextField fx:id="startTimeField" layoutX="291.0" layoutY="150.0" prefHeight="25.0" prefWidth="72.0" promptText="08:15" />
+                        <TextField fx:id="endTimeField" layoutX="289.0" layoutY="234.0" prefHeight="25.0" prefWidth="76.0" promptText="08:30" />
+                        <TextField fx:id="locationField" layoutX="498.0" layoutY="68.0" promptText="Frankfurt" />
+                        <ChoiceBox fx:id="choosePriorityBox" layoutX="498.0" layoutY="149.0" prefWidth="150.0" />
+                        <ChoiceBox fx:id="addReminderBox" layoutX="498.0" layoutY="234.0" prefWidth="150.0" />
+                        <Button fx:id="addEventButton" layoutX="442.0" layoutY="354.0" mnemonicParsing="false" onAction="#addEventButtonOnAction" prefHeight="37.0" prefWidth="148.0" text="Create Appointment" />
+                        <TextField fx:id="addParticipants" layoutX="735.0" layoutY="66.0" prefHeight="25.0" prefWidth="191.0" promptText="max.mustermann@gmail.com" />
+                        <Button fx:id="addParticipantButtonOnAction" layoutX="926.0" layoutY="66.0" mnemonicParsing="false" onAction="#addParticipantButtonOnAction" text="+" />
+                        <Button fx:id="deleteParticipantButtonOnAction" layoutX="951.0" layoutY="66.0" mnemonicParsing="false" onAction="#deleteParticipantButtonOnAction" text="-" />
+                        <ListView fx:id="listViewParticipants" layoutX="735.0" layoutY="106.0" prefHeight="232.0" prefWidth="292.0" style="-fx-background-color: white;" />
+                        <Label fx:id="noEventNameError" layoutX="71.0" layoutY="29.0" prefHeight="17.0" prefWidth="148.0" textFill="RED" />
+                        <Label fx:id="endDateError" layoutX="69.0" layoutY="194.0" prefHeight="17.0" prefWidth="209.0" textFill="RED" />
+                        <Label fx:id="noStartTimeError" layoutX="291.0" layoutY="99.0" prefHeight="17.0" prefWidth="204.0" textFill="RED" />
+                        <Label fx:id="noEndTimeError" layoutX="290.0" layoutY="185.0" prefHeight="17.0" prefWidth="226.0" textFill="RED" />
+                        <Label fx:id="noLocationError" layoutX="498.0" layoutY="21.0" prefHeight="17.0" prefWidth="150.0" textFill="RED" />
+                        <Label fx:id="noMailError" layoutX="735.0" layoutY="20.0" prefHeight="17.0" prefWidth="212.0" textFill="RED" />
+                        <Label fx:id="reminderError" layoutX="442.0" layoutY="325.0" prefHeight="17.0" prefWidth="147.0" textFill="RED" />
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
+            <Tab fx:id="tabMeetings" text="Meetings">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="513.0" prefWidth="1100.0">
+                     <children>
+                        <TableView fx:id="table" prefHeight="421.0" prefWidth="1100.0">
+                          <columns>
+                             <TableColumn fx:id="col_title" onEditCommit="#titleOnEditCommit" prefWidth="206.0" text="Meeting Titel" />
+                             <TableColumn fx:id="col_startDate" minWidth="0.0" onEditCommit="#startDateOnEditCommit" prefWidth="81.0" text="Start Date" />
+                             <TableColumn fx:id="col_endDate" onEditCommit="#endDateOnEditCommit" prefWidth="79.0" text="End Date" />
+                             <TableColumn fx:id="col_startTime" onEditCommit="#startTimeOnEditCommit" prefWidth="76.0" text="Start Time" />
+                             <TableColumn fx:id="col_endTime" onEditCommit="#endTimeOnEditCommit" prefWidth="71.0" text="End Time" />
+                              <TableColumn fx:id="col_duration" prefWidth="177.0" text="Duration" />
+                             <TableColumn fx:id="col_location" onEditCommit="#locationOnEditCommit" prefWidth="192.0" text="Location" />
+                             <TableColumn fx:id="col_priority" onEditCommit="#priorityOnEditCommit" prefWidth="95.0" text="Priority" />
+                             <TableColumn fx:id="col_reminder" onEditCommit="#reminderOnEditCommit" prefWidth="122.0" text="Reminder" />
+                          </columns>
+                        </TableView>
+                        <Button fx:id="downloadButton" layoutX="516.0" layoutY="437.0" mnemonicParsing="false" onAction="#downloadButtonOnAction" prefHeight="25.0" prefWidth="115.0" text="Download" />
+                        <Button fx:id="refreshTableButton" layoutX="656.0" layoutY="437.0" mnemonicParsing="false" onAction="#refreshTableButtonOnAction" prefHeight="25.0" prefWidth="115.0" text="Refresh Table" />
+                        <Button fx:id="editMeetingButton" layoutX="805.0" layoutY="437.0" mnemonicParsing="false" onAction="#editMeetingButtonOnAction" prefHeight="25.0" prefWidth="115.0" text="Edit Meeting" />
+                        <Button fx:id="deleteMeetingButton" layoutX="957.0" layoutY="437.0" mnemonicParsing="false" onAction="#deleteMeetingButtonOnAction" prefHeight="25.0" prefWidth="115.0" text="Delete Meeting" />
+                        <Button fx:id="saveButton" layoutX="727.0" layoutY="437.0" mnemonicParsing="false" onAction="#saveButtonOnAction" prefHeight="25.0" prefWidth="115.0" text="Save" />
+                        <Button fx:id="backButton" layoutX="872.0" layoutY="437.0" mnemonicParsing="false" onAction="#backButtonOnAction" prefHeight="25.0" prefWidth="115.0" text="Back" />
+                        <Label fx:id="pdfLabel" layoutX="358.0" layoutY="441.0" textFill="#17bc02" />
+                     </children>
+                     <padding>
+                        <Insets top="10.0" />
+                     </padding></AnchorPane>
+              </content>
+            </Tab>
+            <Tab fx:id="tabPersonalData" text="Personal Data">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <Label fx:id="usernameTxt" layoutX="144.0" layoutY="85.0" prefHeight="13.0" prefWidth="321.0" />
+                        <Label layoutX="144.0" layoutY="54.0" prefHeight="17.0" prefWidth="74.0" text="Username" />
+                        <Label layoutX="591.0" layoutY="54.0" prefHeight="17.0" prefWidth="74.0" text="E-mail" />
+                        <Label layoutX="144.0" layoutY="121.0" prefHeight="17.0" prefWidth="74.0" text="Firstname" />
+                        <Label layoutX="591.0" layoutY="121.0" prefHeight="17.0" prefWidth="74.0" text="Lastname" />
+                        <Label layoutX="144.0" layoutY="191.0" prefHeight="17.0" prefWidth="74.0" text="ZIP code" />
+                        <Label layoutX="591.0" layoutY="191.0" prefHeight="17.0" prefWidth="74.0" text="City" />
+                        <Label layoutX="144.0" layoutY="261.0" prefHeight="17.0" prefWidth="74.0" text="Adress" />
+                        <Label layoutX="591.0" layoutY="261.0" prefHeight="17.0" prefWidth="83.0" text="Phone number" />
+                        <TextField fx:id="emailTxt" layoutX="591.0" layoutY="81.0" prefHeight="25.0" prefWidth="320.0" />
+                        <TextField fx:id="firstnameTxt" layoutX="144.0" layoutY="148.0" prefHeight="25.0" prefWidth="320.0" />
+                        <TextField fx:id="lastnameTxt" layoutX="591.0" layoutY="148.0" prefHeight="25.0" prefWidth="320.0" />
+                        <TextField fx:id="zipcodeTxt" layoutX="144.0" layoutY="218.0" prefHeight="25.0" prefWidth="320.0" />
+                        <TextField fx:id="cityTxt" layoutX="591.0" layoutY="218.0" prefHeight="25.0" prefWidth="320.0" />
+                        <TextField fx:id="adressTxt" layoutX="144.0" layoutY="288.0" prefHeight="25.0" prefWidth="320.0" />
+                        <TextField fx:id="phonenumberTxt" layoutX="591.0" layoutY="288.0" prefHeight="25.0" prefWidth="320.0" />
+                        <Button fx:id="updateButton" layoutX="330.0" layoutY="371.0" mnemonicParsing="false" onAction="#updateButtonOnAction" prefHeight="25.0" prefWidth="152.0" text="Update">
+                           <effect>
+                              <Lighting diffuseConstant="1.7">
+                                 <bumpInput>
+                                    <Shadow />
+                                 </bumpInput>
+                                 <light>
+                                    <Light.Distant>
+                                       <color>
+                                          <Color red="1.0" green="0.250980406999588" blue="0.250980406999588" />
+                                       </color>
+                                    </Light.Distant>
+                                 </light>
+                              </Lighting>
+                           </effect>
+                        </Button>
+                        <Button fx:id="changePasswordButton" layoutX="569.0" layoutY="371.0" mnemonicParsing="false" onAction="#changePasswordButtonOnAction" prefHeight="25.0" prefWidth="152.0" text="Change Password">
+                           <effect>
+                              <Lighting diffuseConstant="1.7">
+                                 <bumpInput>
+                                    <Shadow />
+                                 </bumpInput>
+                                 <light>
+                                    <Light.Distant>
+                                       <color>
+                                          <Color red="1.0" green="0.250980406999588" blue="0.250980406999588" />
+                                       </color>
+                                    </Light.Distant>
+                                 </light>
+                              </Lighting>
+                           </effect>
+                        </Button>
+                        <Label fx:id="errorEmail" alignment="CENTER_RIGHT" layoutX="591.0" layoutY="106.0" prefHeight="17.0" prefWidth="320.0" textAlignment="RIGHT" textFill="RED" />
+                        <Label fx:id="errorFirstname" alignment="CENTER_RIGHT" layoutX="144.0" layoutY="173.0" prefHeight="17.0" prefWidth="318.0" textAlignment="RIGHT" textFill="RED" />
+                        <Label fx:id="errorLastname" alignment="CENTER_RIGHT" layoutX="591.0" layoutY="173.0" prefHeight="17.0" prefWidth="318.0" textAlignment="RIGHT" textFill="RED" />
+                        <Label fx:id="errorZipCode" alignment="CENTER_RIGHT" layoutX="144.0" layoutY="243.0" prefHeight="17.0" prefWidth="318.0" textAlignment="RIGHT" textFill="RED" />
+                        <Label fx:id="errorCity" alignment="CENTER_RIGHT" layoutX="591.0" layoutY="243.0" prefHeight="17.0" prefWidth="319.0" textAlignment="RIGHT" textFill="RED" />
+                        <Label fx:id="errorAdress" alignment="CENTER_RIGHT" layoutX="144.0" layoutY="313.0" prefHeight="17.0" prefWidth="318.0" textAlignment="RIGHT" textFill="RED" />
+                        <Label fx:id="errorPhoneNumber" alignment="CENTER_RIGHT" layoutX="591.0" layoutY="313.0" prefHeight="17.0" prefWidth="319.0" textAlignment="RIGHT" textFill="RED" />
+                     </children></AnchorPane>
+              </content>
+            </Tab>
+         </tabs>
+      </TabPane>
+   </children>
+</AnchorPane>
