@@ -256,13 +256,13 @@ public class UserLoginController implements Initializable {
             endDateError.setText("End Date needs to be after Start Date");
         }
 
-        //if(startDatePicker.getValue().equals(endDatePicker.getValue())) {
+
             if (event.checkEventTime(startTimeField.getText(), endTimeField.getText())) {
                 noEndTimeError.setText("");
             } else {
                 noEndTimeError.setText("End Time needs to be after Start Time");
             }
-        //}
+
 
         if (event.checkFieldEmpty(startTimeField.getText()) && event.checkFieldEmpty(startDatePicker.getValue().toString())) {
             if(event.checkValidEventTime(static_startTimeField.getText(), static_startDatePicker.getValue().toString())){
