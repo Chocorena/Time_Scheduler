@@ -38,6 +38,9 @@ import java.util.stream.Stream;
 
 import static G13.LoginController.static_usernameLogin;
 
+/**
+ * responsible for the view when a user is logged in
+ */
 public class UserLoginController implements Initializable {
     @FXML
     private Label usernameTxt, errorFirstname, errorEmail, errorLastname, errorZipCode, errorCity, errorAdress, errorPhoneNumber, usernameLBL, pdfLabel, noEventNameError, noStartTimeError,noEndTimeError, noLocationError, endDateError, noMailError, reminderError;
@@ -194,6 +197,7 @@ public class UserLoginController implements Initializable {
      * Checks if Start Date and Start Time is before End Date and End Time
      * Checks if Start Time is in the future
      * If every check is true, then the insert method will be openend
+     * @throws Exception because of checkValidEventTime method
      * @author Morena, Emre
      */
     public void addEventButtonOnAction() throws Exception {
@@ -252,11 +256,12 @@ public class UserLoginController implements Initializable {
             endDateError.setText("End Date needs to be after Start Date");
         }
 
-
-        if(event.checkEventTime(startTimeField.getText(), endTimeField.getText())){
-            noEndTimeError.setText("");
-        } else {
-            noEndTimeError.setText("End Time needs to be after Start Time");
+        if(startDatePicker.getValue().equals(endDatePicker.getValue())) {
+            if (event.checkEventTime(startTimeField.getText(), endTimeField.getText())) {
+                noEndTimeError.setText("");
+            } else {
+                noEndTimeError.setText("End Time needs to be after Start Time");
+            }
         }
 
         if (event.checkFieldEmpty(startTimeField.getText()) && event.checkFieldEmpty(startDatePicker.getValue().toString())) {
@@ -270,7 +275,7 @@ public class UserLoginController implements Initializable {
         if(event.checkFieldEmpty(nameEventField.getText()) && event.checkFieldEmpty(startTimeField.getText()) && event.checkFieldEmpty(endTimeField.getText()) &&
                 event.checkFieldEmpty(locationField.getText()) && event.checkFieldEmpty(startTimeField.getText()) && event.checkEventValidTime(startTimeField.getText()) &&
                 event.checkFieldEmpty(endTimeField.getText()) && event.checkEventValidTime(endTimeField.getText()) && event.checkEventDate(startDatePicker.getValue(), endDatePicker.getValue()) &&
-                event.checkEventTime(startTimeField.getText(), endTimeField.getText()) && event.checkValidEventTime(static_startTimeField.getText(), static_startDatePicker.getValue().toString())){
+                event.checkValidEventTime(static_startTimeField.getText(), static_startDatePicker.getValue().toString())){
 
             try (Connection connectDB = MainApp.connectNow.getConnection()) {
                 Statement statement = connectDB.createStatement();
@@ -394,7 +399,6 @@ public class UserLoginController implements Initializable {
      * Connect to the database and execute the getUserID query and set the id to String ID, execute now the String query to get only user specific events
      * Set format, headline, font size, footer
      * Add all to the PDF document and download it
-     * @param event
      * @author Ercan
      */
     public void downloadButtonOnAction() {
@@ -621,6 +625,7 @@ public class UserLoginController implements Initializable {
      * It deletes the meeting based on the id.
      * The SQL query choses the email from the table and opens the Class DeleteMeeting afterwards which sends the user an email which meeting was deleted.
      * The refreshMeetingTable() is called afterwards so that the old data is deleted from the table and the new data is set.
+     * @throws Exception because of database connection and deleteMeeting method
      * @author Emre
      */
     public void deleteMeetingButtonOnAction() throws Exception {
@@ -658,6 +663,7 @@ public class UserLoginController implements Initializable {
      * Data needs to be formated in the SimpleDateFormat again.
      * The SQL query choses the email from the table and opens the methid editMeetingMail from the class Edit Meeting
      * afterwards which sends the user an email which meeting was edited.
+     * @throws Exception because of editMeetingMail method
      * @author Emre
      */
     public void saveButtonOnAction() throws Exception {
@@ -701,6 +707,8 @@ public class UserLoginController implements Initializable {
     /**
      * Overwrites the old value of the table with the new value from the database.
      * It counts for all of the Table columns.
+     * @param event cell of the tablecolumn that should be edited
+     * @param event
      * @author Emre
      */
     public void titleOnEditCommit(TableColumn.CellEditEvent<MeetingTable, String> event) {
@@ -711,6 +719,7 @@ public class UserLoginController implements Initializable {
     /**
      * Overwrites the old value of the table with the new value from the database.
      * It counts for all of the Table columns.
+     * @param event cell of the tablecolumn that should be edited
      * @author Emre
      */
     public void startDateOnEditCommit(TableColumn.CellEditEvent<MeetingTable, Date> event) {
@@ -721,6 +730,7 @@ public class UserLoginController implements Initializable {
     /**
      * Overwrites the old value of the table with the new value from the database.
      * It counts for all of the Table columns.
+     * @param event cell of the tablecolumn that should be edited
      * @author Emre
      */
     public void endDateOnEditCommit(TableColumn.CellEditEvent<MeetingTable, Date> event) {
@@ -731,6 +741,7 @@ public class UserLoginController implements Initializable {
     /**
      * Overwrites the old value of the table with the new value from the database.
      * It counts for all of the Table columns.
+     * @param event cell of the tablecolumn that should be edited
      * @author Emre
      */
     public void startTimeOnEditCommit(TableColumn.CellEditEvent<MeetingTable, String> event) {
@@ -741,6 +752,7 @@ public class UserLoginController implements Initializable {
     /**
      * Overwrites the old value of the table with the new value from the database.
      * It counts for all of the Table columns.
+     * @param event cell of the tablecolumn that should be edited
      * @author Emre
      */
     public void endTimeOnEditCommit(TableColumn.CellEditEvent<MeetingTable, String> event) {
@@ -751,6 +763,7 @@ public class UserLoginController implements Initializable {
     /**
      * Overwrites the old value of the table with the new value from the database.
      * It counts for all of the Table columns.
+     * @param event cell of the tablecolumn that should be edited
      * @author Emre
      */
     public void locationOnEditCommit(TableColumn.CellEditEvent<MeetingTable, String> event) {
@@ -761,6 +774,7 @@ public class UserLoginController implements Initializable {
     /**
      * Overwrites the old value of the table with the new value from the database.
      * It counts for all of the Table columns.
+     * @param event cell of the tablecolumn that should be edited
      * @author Emre
      */
     public void priorityOnEditCommit(TableColumn.CellEditEvent<MeetingTable, String> event) {
@@ -771,6 +785,7 @@ public class UserLoginController implements Initializable {
     /**
      * Overwrites the old value of the table with the new value from the database.
      * It counts for all of the Table columns.
+     * @param event cell of the tablecolumn that should be edited
      * @author Emre
      */
     public void reminderOnEditCommit(TableColumn.CellEditEvent<MeetingTable, String> event) {
@@ -918,7 +933,7 @@ public class UserLoginController implements Initializable {
 
     /**
      * By clicking on this button the user will be logged out from the UserloginView and gets back to the Loginview.
-     * @throws IOException
+     * @throws IOException because of fxmlLoader.load method
      * @author Emre
      */
     public void logoutButtonOnAction() throws IOException {
