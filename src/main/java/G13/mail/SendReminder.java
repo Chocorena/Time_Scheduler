@@ -14,6 +14,9 @@ import java.util.Date;
 import static G13.LoginController.static_usernameLogin;
 import static G13.UserLoginController.static_reminderError;
 
+/**
+ * responsible for sending reminders for the meetings to all participants
+ */
 public class SendReminder {
 
     /**
@@ -125,41 +128,36 @@ public class SendReminder {
             }
         });
 
-        try {
-            Connection connectDB = MainApp.connectNow.getConnection();
-            Statement statement = connectDB.createStatement();
-            String emails = "SELECT * FROM mails WHERE id = '" + id + "'";
-            ResultSet resultSet = statement.executeQuery(emails);
+        Connection connectDB = MainApp.connectNow.getConnection();
+        Statement statement = connectDB.createStatement();
+        String emails = "SELECT * FROM mails WHERE id = '" + id + "'";
+        ResultSet resultSet = statement.executeQuery(emails);
 
-            ArrayList<String> mails = new ArrayList<>();
-            mails.add(recipient);
-            while (resultSet.next()) {
-                mails.add(resultSet.getString(3));
-            }
-
-            InternetAddress[] addresses = new InternetAddress[mails.size()];
-            for (int i = 0; i < mails.size(); i++) {
-                try {
-                    addresses[i] = new InternetAddress(mails.get(i).trim());
-
-                } catch (AddressException e) {
-                    e.printStackTrace();
-                }
-            }
-
-            Message msg = new MimeMessage(session);
-            msg.setRecipients(Message.RecipientType.TO, addresses);
-            msg.setFrom(new InternetAddress(emailAccount));
-            msg.setSubject("Time Scheduler " + title + " starts " + dateForMail + " in " + location);
-            msg.setText("Hello,\n\n" + title + " starts " + dateForMail + " in " + location +
-                    "\n\n\nWith best regards Time Scheduler EMEF");
-            Transport.send(msg);
-            System.out.println("Sent message successfully....");
-
-        } catch (IOException e) {
-            e.printStackTrace();
-
+        ArrayList<String> mails = new ArrayList<>();
+        mails.add(recipient);
+        while (resultSet.next()) {
+            mails.add(resultSet.getString(3));
         }
+
+        InternetAddress[] addresses = new InternetAddress[mails.size()];
+        for (int i = 0; i < mails.size(); i++) {
+            try {
+                addresses[i] = new InternetAddress(mails.get(i).trim());
+
+            } catch (AddressException e) {
+                e.printStackTrace();
+            }
+        }
+
+        Message msg = new MimeMessage(session);
+        msg.setRecipients(Message.RecipientType.TO, addresses);
+        msg.setFrom(new InternetAddress(emailAccount));
+        msg.setSubject("Time Scheduler " + title + " starts " + dateForMail + " in " + location);
+        msg.setText("Hello,\n\n" + title + " starts " + dateForMail + " in " + location +
+                "\n\n\nWith best regards Time Scheduler EMEF");
+        Transport.send(msg);
+        System.out.println("Sent message successfully....");
+
     }
 
 
@@ -189,7 +187,7 @@ public class SendReminder {
                     String gotReminder = "UPDATE meetings SET gotReminder = 1 WHERE id = '" + id + "'";
                     java.util.Date currentDate = new java.util.Date();
 
-                    if(date.equals(currentDate)){
+                    if(date.equals(currentDate) && bool.equals("0")){
                         getEmailForReminder(dateForMail, title, id, location);
                         PreparedStatement preparedStatement = connectDB.prepareStatement(gotReminder);
                         preparedStatement.execute();
